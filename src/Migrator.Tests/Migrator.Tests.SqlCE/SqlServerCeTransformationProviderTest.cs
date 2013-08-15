@@ -33,8 +33,8 @@ namespace Migrator.Tests.Providers
 
 			EnsureDatabase(constr);
 
-            _provider = new SqlServerCeTransformationProvider(new SqlServerCeDialect(), constr);
-            _provider.BeginTransaction();
+            Provider = new SqlServerCeTransformationProvider(new SqlServerCeDialect(), constr);
+            Provider.BeginTransaction();
 
             AddDefaultTable();
         }

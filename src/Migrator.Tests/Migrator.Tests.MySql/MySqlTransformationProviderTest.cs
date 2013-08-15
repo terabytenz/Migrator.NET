@@ -27,7 +27,7 @@ namespace Migrator.Tests.Providers
             string constr = ConfigurationManager.AppSettings["MySqlConnectionString"];
             if (constr == null)
                 throw new ArgumentNullException("MySqlConnectionString", "No config file");
-            _provider = new MySqlTransformationProvider(new MysqlDialect(), constr);
+            Provider = new MySqlTransformationProvider(new MysqlDialect(), constr);
             // _provider.Logger = new Logger(true, new ConsoleWriter());
 
             AddDefaultTable();
@@ -42,7 +42,7 @@ namespace Migrator.Tests.Providers
         [Test]
         public void AddTableWithMyISAMEngine()
         {
-            _provider.AddTable("Test", "MyISAM",
+            Provider.AddTable("Test", "MyISAM",
                                new Column("Id", DbType.Int32, ColumnProperty.NotNull),
                                new Column("name", DbType.String, 50)
                 );

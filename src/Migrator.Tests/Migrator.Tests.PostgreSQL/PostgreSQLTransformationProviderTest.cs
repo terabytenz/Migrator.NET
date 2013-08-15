@@ -15,8 +15,8 @@ namespace Migrator.Tests.Providers
             if (constr == null)
                 throw new ArgumentNullException("ConnectionString", "No config file");
 
-            _provider = new PostgreSQLTransformationProvider(new PostgreSQLDialect(), constr);
-            _provider.BeginTransaction();
+            Provider = new PostgreSQLTransformationProvider(new PostgreSQLDialect(), constr);
+            Provider.BeginTransaction();
             
             AddDefaultTable();
         }
