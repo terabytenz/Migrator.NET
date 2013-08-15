@@ -5,3 +5,5 @@ bin/
 obj/
 _ReSharper*/
 build/
+_NCrunch*/
+packages/
