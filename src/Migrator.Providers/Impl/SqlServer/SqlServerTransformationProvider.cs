@@ -71,7 +71,7 @@ namespace Migrator.Providers.SqlServer
             string schemaName = GetSchemaName(tableWithoutBrackets);
             string tableName = this.GetTableName(tableWithoutBrackets);		    
 			using (IDataReader reader =
-				ExecuteQuery(String.Format("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA ='{0}' AND TABLE_NAME='{1}'", schemaName,tableName)))
+				ExecuteQuery(String.Format("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE (TABLE_SCHEMA IS NULL OR TABLE_SCHEMA ='{0}') AND TABLE_NAME='{1}'", schemaName, tableName)) )
 			{
 				return reader.Read();
 			}

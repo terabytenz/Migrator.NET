@@ -13,12 +13,14 @@ using System;
 using System.Configuration;
 using System.Data.SqlServerCe;
 using Migrator.Providers.SqlServer;
+using Migrator.Tools;
 using NUnit.Framework;
 using System.IO;
 
 namespace Migrator.Tests.Providers
 {
     [TestFixture, Category("SqlServerCe")]
+	[NCrunch.Framework.ExclusivelyUses("sqlce4")]
     public class SqlServerCeTransformationProviderTest : TransformationProviderConstraintBase
     {
         [SetUp]
@@ -39,13 +41,22 @@ namespace Migrator.Tests.Providers
 
         private void EnsureDatabase(string constr)
         {
-            SqlCeConnection connection = new SqlCeConnection(constr);
-            if (!File.Exists(connection.Database))
+			SqlCeConnection connection = new SqlCeConnection(constr);
+			var file = new FileInfo(connection.Database);
+			Console.WriteLine(file.FullName);
+			
+			if ( !File.Exists(connection.Database) )
             {
-                SqlCeEngine engine = new SqlCeEngine(constr);
-                engine.CreateDatabase();
-            }
+				SqlCeEngine engine = new SqlCeEngine(constr);
+				engine.CreateDatabase();
+			}
         }
+
+		[TestFixtureSetUp]
+		public void ClearDatabase()
+		{
+			
+		}
 
         // [Test,Ignore("SqlServerCe doesn't support check constraints")]
 		public override void CanAddCheckConstraint() { }

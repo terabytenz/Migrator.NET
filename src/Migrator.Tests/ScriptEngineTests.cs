@@ -14,7 +14,9 @@ namespace Migrator.Tests
             ScriptEngine engine = new ScriptEngine();
 
             // This should let it work on windows or mono/unix I hope
-            string dataPath = Path.Combine(Path.Combine("..", Path.Combine("src", "Migrator.Tests")), "Data");
+            string dataPath = "Data";
+        	var directory = new DirectoryInfo(dataPath);
+			Assert.That(directory.Exists, Is.True, directory.FullName);
 
             Assembly asm = engine.Compile(dataPath);
             Assert.IsNotNull(asm);
